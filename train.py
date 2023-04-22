@@ -179,13 +179,14 @@ model_ft,train_loss_array,train_accuracy_array,test_loss_array,test_accuracy_arr
 
 #######log test loss to loss.csv
 logs = pd.DataFrame({'train_loss': train_loss_array ,'test_loss':test_loss_array,'train_accuracy':train_accuracy_array,'test_accuracy':test_accuracy_array})
-logs['test_accuracy'].to_csv("logs.csv",index=False)
+logs['test_loss'].to_csv("logs.csv",index=False)
 
+'''
 ######## save train loss and test loss plot 
 fig = px.line(logs, y=logs.columns[:2], markers=True)
 fig.update_layout(yaxis_range=[0,1])
 fig.write_image("loss.png")
-
+'''
 
 
 #######generate classes.csv#########################
