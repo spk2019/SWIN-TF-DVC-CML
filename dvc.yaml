@@ -1,0 +1,17 @@
+stages:
+  mystage:
+    cmd: python train.py --epochs 10 --batch 32
+    deps:
+    - train.py
+    - data
+    outs:
+    - loss.png
+    - confusion_matrix.png
+    metrics:
+    - metrics.txt:
+        cache: false
+    plots:
+    - classes.csv:
+        cache: false
+    - loss.csv:
+        cache: false
