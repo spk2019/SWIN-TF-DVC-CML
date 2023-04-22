@@ -9,9 +9,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+      
       - uses: iterative/setup-cml@v1
       - uses: iterative/setup-dvc@v1
       - name: Train model
@@ -33,4 +31,4 @@ jobs:
           dvc plots diff --target classes.csv --template confusion -x actual -y predicted --show-vega main > vega.json
           vl2png vega.json > plot.png
           echo '![](./plot.png)' >> report.md
-          cml comment create --pr --publish report.md
+          cml comment create --target=pr --publish report.md
