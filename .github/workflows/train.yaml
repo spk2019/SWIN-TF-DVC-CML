@@ -6,12 +6,11 @@ jobs:
     # container: docker://ghcr.io/iterative/cml:0-dvc2-base1
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+            node-version: '16'
+      - uses: actions/checkout@v3
       - uses: iterative/setup-cml@v1
       - uses: iterative/setup-dvc@v1
         with:
@@ -38,3 +37,4 @@ jobs:
           vl2png vega.json > plot.png
           echo '![](./plot.png)' >> report.md
           cml comment create --pr --publish report.md
+
