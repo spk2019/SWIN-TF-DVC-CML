@@ -4,8 +4,7 @@ stages:
     deps:
     - train.py
     - data
-    outs:
-    - confusion_matrix.png
+   
     metrics:
     - metrics.txt:
         cache: false
