@@ -22,13 +22,13 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "## Metrics" >> report.md
-          git fetch --prune  --unshallow
-          dvc metrics diff main --show-md >> report.md
+          # Compare metrics to main
+          git fetch --depth=1 origin main:main 
+          dvc metrics diff --show-md main >> report.md
           
-          # Publish confusion matrix diff
-          echo "## Confusion matrix plot " >> report.md
-          dvc plots diff --target classes.csv --template confusion -x actual -y predicted --show-vega main > vega.json
+          # Plot training loss function diff
+          dvc plots diff  --target logs.csv --show-vega main > vega.json
           vl2png vega.json > plot.png
-          echo '![](./plot.png)' >> report.md
-          cml comment create --target=pr --publish report.md
+          echo '![](./plot.png "Training Loss")' >> report.md
+          
+          cml comment create report.md
