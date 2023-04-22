@@ -11,5 +11,5 @@ stages:
     plots:
     - classes.csv:
         cache: false
-    - loss.csv:
+    - logs.csv:
         cache: false
