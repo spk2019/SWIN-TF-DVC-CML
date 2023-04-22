@@ -46,7 +46,7 @@ data_transforms = {
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
     'test': transforms.Compose([
-        transforms.Resize(256),
+        transforms.Resize(232),
         transforms.CenterCrop(224),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
@@ -69,28 +69,28 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 ####fine tuning Swin Transformer#################
 
-resnet =  models.resnet18(weights=models.ResNet18_Weights.IMAGENET1K_V1)
+swin_t =  models.swin_t(weights=models.Swin_T_Weights.IMAGENET1K_V1)
 
 
 num_classes = 2
-for param in resnet.parameters():
-        param.requires_grad=False
+for param in swin_t.parameters():
+    param.requires_grad = False
 
-    #Training the last fc layer
-in_features =  resnet.fc.in_features
-resnet.fc = nn.Linear(in_features,num_classes)
-            
+
+in_features = swin_t.head.in_features
+swin_t.head = nn.Linear(in_features=in_features,out_features=num_classes)
 '''
-for param in resnet.parameters():
+for param in swin_t.parameters():
     if param.requires_grad == True :
         print(param.shape)
 '''    
 
 
-model = resnet.to(device)
+model = swin_t.to(device)
 loss_fn = nn.CrossEntropyLoss()
 opt = optim.AdamW(model.parameters(), lr=0.001,weight_decay=0.01)
 exp_lr_scheduler = lr_scheduler.StepLR(opt, step_size=7, gamma=0.1)
+
 
 
 ####### Training Script#########
