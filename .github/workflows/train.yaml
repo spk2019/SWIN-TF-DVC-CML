@@ -27,10 +27,11 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Report metrics
           echo "## Metrics" >> report.md
-          git fetch --prune  --unshallow
+          git fetch --prune
           dvc metrics diff main --show-md >> report.md
-          
+
           # Publish confusion matrix diff
           echo "## Plots" >> report.md
           echo "### Class confusions" >> report.md
