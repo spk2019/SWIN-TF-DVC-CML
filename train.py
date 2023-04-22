@@ -217,7 +217,7 @@ classes.to_csv("classes.csv",index=False)
 
 
 
-
+'''
 ############ plot confusion matrix################
 plt.figure(figsize=(7,5))
 data = confusion_matrix(classes['actual'], classes['predicted'])
@@ -226,4 +226,4 @@ df_cm.index.name = 'Actual'
 df_cm.columns.name = 'Predicted'
 sns.heatmap(df_cm, cmap="Blues", annot=True)
 plt.savefig('confusion_matrix.png')
-
+'''
