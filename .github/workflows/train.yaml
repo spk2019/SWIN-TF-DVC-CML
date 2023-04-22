@@ -29,8 +29,7 @@ jobs:
           git fetch --depth=1 origin main:main 
           dvc metrics diff --show-md main >> report.md
           # Plot training loss function diff
-          dvc plots diff \
-            --target logs.csv --show-vega main > vega.json
+          dvc plots diff --target logs.csv --show-vega main > vega.json
           vl2png vega.json > plot.png
           echo '![](./plot.png "Test Accuracy")' >> report.md
           cml comment create report.md
